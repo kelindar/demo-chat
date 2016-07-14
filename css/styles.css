@@ -1,0 +1,45 @@
+﻿
+@import url(https://fonts.googleapis.com/css?family=Sue+Ellen+Francisco);
+
+body{
+	background-color: rgb(244, 244, 244);
+}
+
+.panel-default {
+	margin-left: 70px;
+	font-family: "Sue Ellen Francisco";
+	min-height: 60px;
+	margin-bottom: 10px;
+	font-size: 25px;
+}
+
+.form-control{
+	font-family: "Sue Ellen Francisco";
+	font-size: 20px;
+	min-height: 40px;
+}
+
+.img-circle {
+    border-radius: 20%;
+	position: absolute;
+	width: 60px;
+	height: 60px;
+}
+
+.emoji{
+	list-style-type: none;
+    display: table;
+    margin-top: 10px;
+    padding: 0;
+}
+
+.emoji li {
+	font-size: 25px;
+    padding: 2px;
+    display: inline-flex;
+}
+
+.emoji li a {
+	color: darkslategray;
+	
+}
