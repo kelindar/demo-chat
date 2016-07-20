@@ -56,7 +56,16 @@ emitter.on('connect', function(){
 
 // on every message, print it out
 emitter.on('message', function(msg){
+
+    // log that we've received a message
     console.log('emitter: received ' + msg.asString() );
+
+    // If we have already 5 messages, remove the oldest one (first)
+    if (vue.$data.messages.length >= 5){
+        vue.$data.messages.shift();
+    }
+
+    // Push the message we've received and update an identicon once it's there
     vue.$data.messages.push(msg.asObject());
     setTimeout(function(){ 
         jdenticon.update(".img-circle");
