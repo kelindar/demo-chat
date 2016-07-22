@@ -1,7 +1,7 @@
-var emitter = emitter.connect({
+﻿var emitter = emitter.connect({
     secure: true
 }); 
-var key = 'vf2s1vw4xu4cSUUILDaRCNzBLt1I7Voq';
+var key = 'LyOL3fhQDfOKyB6PWNkv6vemLSPjP8hf';
 var vue = new Vue({
     el: '#app',
     data: {
