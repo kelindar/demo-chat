@@ -1,73 +1,98 @@
-﻿var emitter = emitter.connect({
-    secure: true
-}); 
-var key = 'LyOL3fhQDfOKyB6PWNkv6vemLSPjP8hf';
+﻿var channel = "presence-demo/" + Math.random().toString(16).substr(2, 8) ; 
+var client0 = emitter.connect({ secure: true, clientId: "Myself" });
+var client1 = null;
+var client2 = null; 
+
+var key = 'X4-nUeHjiAygHMdN8wst82S3c2KcCMn7';
 var vue = new Vue({
     el: '#app',
     data: {
-        messages: [],
-        message: '',
-        emoji: [
-            "😀", "😬", "😁", "😂", "😃", "😄", "😅", "😆", "😇", "😉", "😊",
-            "🙂", "😋", "😌", "😍", "😘", "😗", "😙", "😚", "😜", "😝", "😛", 
-            "😎", "😏", "😶", "😐", "😑", "😒", "😳", "😞", "😟", "😠", "😡",
-            "😔", "😕", "🙁", "☹", "😣", "😖", "😫", "😩", "😤", "😮", "😱",
-            "😨", "😰", "😯", "😦", "😧", "😢", "😥", "😪", "😓", "😭", "😵", 
-            "😲", "😷"
-        ]
+        users: [],
+        occupancy: 0,
+        device1: "login",
+        device2: "login"
     },
     methods: {
-        sendMessage: function () {
-            var message = this.$data.message;
-            this.$data.message = '';
-
-	        // publish a message to the chat channel
-	        console.log('emitter: publishing');
-	        emitter.publish({
-                key: key,
-                channel: "article1/" + getPersistentVisitorId(),
-                ttl: 1200,
-                message: JSON.stringify({
-                    name: 'test',
-                    hash: getPersistentVisitorId(),
-                    text: message,
-                    date: new Date()
-                })
-            });
+        toggleDevice1: function () {
+            client1 = toggleConnection(client1, "Margaret H.");
+            vue.$data.device1 = (client1) ? "logout" : "login";
         },
 
-        append: function(emoji) {
-            this.$data.message += ' ' + emoji + ' ';
+        toggleDevice2: function() {
+            client2 = toggleConnection(client2, "Alan K.");
+            vue.$data.device2 = (client2) ? "logout" : "login";
+        },
+
+        getPresence: function() {
+            // Query the presence state
+            client0.presence({
+                key: key,
+                channel: channel
+            })
         }
     }
 });
 
-emitter.on('connect', function(){
+
+/**
+ * Function that togggles the connection on a particular emitter client.
+ */
+function toggleConnection(client, name) {
+    if(client) {
+        // If client is already connected, disconnect it
+        client.disconnect();
+        return null;
+    } else {
+        // If client is not yet connected, connect and subscribe to the channel
+        client = emitter.connect({ secure: true, clientId: name });
+        client.on('connect', function(){
+            client.subscribe({
+                key: key,
+                channel: channel
+            });
+        });
+        return client;
+    }
+}
+
+client0.on('connect', function(){
     // once we're connected, subscribe to the 'chat' channel
     console.log('emitter: connected');
-    emitter.subscribe({
+    client0.subscribe({
         key: key,
-        channel: "article1",
-        last: 5
+        channel: channel,
+        presence: true
     });
-
-    jdenticon.update(".img-circle");
 })
 
-// on every message, print it out
-emitter.on('message', function(msg){
-
-    // log that we've received a message
-    console.log('emitter: received ' + msg.asString() );
-
-    // If we have already 5 messages, remove the oldest one (first)
-    if (vue.$data.messages.length >= 5){
-        vue.$data.messages.shift();
+// on every presence event, print it out
+client0.on('presence', function(msg){
+    console.log(msg);    
+    var users = vue.$data.users;
+    if (msg.action){
+        // We've received a presence state change notification, when
+        // someone joins or leaves the channel.
+        if(msg.action == 'join'){
+            users.push({ 
+                name: msg.client
+            })
+        } else if(msg.action == 'leave') {
+            vue.$data.users = users.filter(function( obj ) {
+                return obj.name !== msg.client;
+            });
+        }
+    } 
+    
+    if(msg.clients){
+        // We've received a full response with a complete list of clients
+        // that are currently subscribed to this channel. 
+        for(var i=0; i<msg.clients.length;++i){
+            users.push({
+                name: msg.clients[i]
+            });
+        }
     }
 
-    // Push the message we've received and update an identicon once it's there
-    vue.$data.messages.push(msg.asObject());
-    setTimeout(function(){ 
-        jdenticon.update(".img-circle");
-    },5);
+    // Also, set the occupancy
+    vue.$data.occupancy = msg.occupancy;
 });

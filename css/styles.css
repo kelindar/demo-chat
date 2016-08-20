@@ -5,41 +5,95 @@ body{
 	background-color: rgb(244, 244, 244);
 }
 
-.panel-default {
-	margin-left: 70px;
+.entry {
 	font-family: "Sue Ellen Francisco";
-	min-height: 60px;
+	min-height: 30px;
 	margin-bottom: 10px;
 	font-size: 25px;
+	color: #000;
 }
 
-.form-control{
+.btn {
+	border-radius: 0px;
+	text-transform: uppercase;
 	font-family: "Sue Ellen Francisco";
-	font-size: 20px;
-	min-height: 40px;
+	font-size: 2rem;
 }
 
-.img-circle {
-    border-radius: 20%;
-	position: absolute;
-	width: 60px;
-	height: 60px;
+.btn:hover, .btn:focus{
+	color: #fff;
 }
 
-.emoji{
-	list-style-type: none;
-    display: table;
-    margin-top: 10px;
-    padding: 0;
+.btn-login {
+	background-color: #286090;
+    border-color: #204d74;
+	color: #fff;
 }
 
-.emoji li {
-	font-size: 25px;
-    padding: 2px;
-    display: inline-flex;
+.btn-login:hover, .btn-login:focus{
+	background-color: #204d74;
 }
 
-.emoji li a {
-	color: darkslategray;
-	
+.btn-logout {
+	background-color: #d9534f;
+    border-color: #d43f3a;
+	color: #fff;
+}
+
+.btn-logout:hover, .btn-logout:focus{
+	background-color: #d43f3a;
+}
+
+.wide{
+	width: 100%;
+}
+
+.watch-content a{
+	color: #fff;
+	text-transform: uppercase;
+}
+
+.marvel-device.iphone5s{
+	width: 160px;
+    height: 250px;
+	border-radius: 25px;
+	padding: 78px 12px;
+}
+
+.marvel-device.iphone5s .home {
+    -moz-border-radius: 36px;
+    -webkit-border-radius: 36px;
+    border-radius: 36px;
+    width: 34px;
+    height: 34px;
+    margin-left: -20px;
+}
+
+.marvel-device.iphone5s:before, .marvel-device.iphone5c:before {
+    border-radius: 22px;
+}
+
+.marvel-device .screen{
+	color: #000;
+	font-family: "Sue Ellen Francisco";
+	padding-top:10px;
+}
+
+.avatar{
+    margin-bottom: 28px;
+    height: 170px;
+}
+
+.avatar-login{
+	-webkit-filter: grayscale(100%);
+	filter: grayscale(100%);
+}
+
+.avatar-logout{
+	-webkit-filter: none;
+	filter:none;
+}
+
+.screen h3 {
+	text-decoration: underline;
 }

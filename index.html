@@ -4,49 +4,76 @@
     <meta charset="utf-8" />
     <title>HTML5 Chat with Emitter</title>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.css">
+    <link rel="stylesheet" href="css/devices.min.css" />
     <link rel="stylesheet" href="css/styles.css" type="text/css" />
 </head>
 <body>
-<div class="container" id="app"> 
-  <div class="row">
-    <div class="col-sm-12 col-md-6 col-md-offset-3">
-        <h2>Serverless Chat</h2>
+<div class="container" id="app">
+    <div class="row">
+        <h2>Presence</h2>
         <h4>Using <a href="https://emitter.io">emitter.io</a>, <a href="http://getbootstrap.com/">bootstrap</a> and <a href="http://vuejs.org">vue</a></h4>
         <hr>
+    </div>
+  <div class="row">
 
-      <div v-for="message in messages" class="row animated bounceInRight">
-        <div class="col-sm-12">
-            <canvas width="80" height="80" data-jdenticon-hash="{{message.hash}}" class="img-thumbnail img-responsive img-circle"></canvas>
-            <div class="panel panel-default">
-                <div class="panel-body">{{message.text}}</div>
+        <div class="col-sm-4">
+            <div class="marvel-device iphone5s silver">
+                <div class="top-bar"></div>
+                <div class="sleep"></div>
+                <div class="volume"></div>
+                <div class="camera"></div>
+                <div class="sensor"></div>
+                <div class="speaker"></div>
+                <div class="screen">
+                    <img class="avatar avatar-{{device1}}" src="img/avatar1.png" />
+                    <a href="#"  class="btn btn-{{device1}} wide" v-on:click="toggleDevice1()" >{{device1}}</a>
+                </div>
+                <div class="home"></div>
+                <div class="bottom-bar"></div>
             </div>
         </div>
-      </div>
-  	</div>
-  </div>
-  
-  <div class="row">
-    <form v-on:submit.prevent class="col-sm-12 col-md-6 col-md-offset-3">
-        <div class="input-group">
-            <input type="text" class="form-control" v-model="message" placeholder="Say Something">
-            <span class="input-group-btn">
-                <button class="btn btn-default form-control" type="submit" v-on:click="sendMessage()">Say it! <i class="fa fa-commenting-o"></i></button>
-            </span>
+
+        <div class="col-sm-4">
+            <div class="marvel-device iphone5s silver">
+                <div class="top-bar"></div>
+                <div class="sleep"></div>
+                <div class="volume"></div>
+                <div class="camera"></div>
+                <div class="sensor"></div>
+                <div class="speaker"></div>
+                <div class="screen">
+                    <h3>Now Online: {{occupancy}}</h3>
+                    <div v-for="user in users" track-by="name" class="row ">
+                        <div class="entry">{{user.name}}</div>
+                    </div>
+                </div>
+                <div class="home"></div>
+                <div class="bottom-bar"></div>
+            </div>
         </div>
 
-        <ul class="emoji">
-            <li v-for="em in emoji"><a  v-on:click="append(em)" >{{em}}</a></li>
-        </ul>
-    </form>
-  </div>
-
+        <div class="col-sm-4">
+            <div class="marvel-device iphone5s silver">
+                <div class="top-bar"></div>
+                <div class="sleep"></div>
+                <div class="volume"></div>
+                <div class="camera"></div>
+                <div class="sensor"></div>
+                <div class="speaker"></div>
+                <div class="screen">
+                    <img class="avatar avatar-{{device2}}" src="img/avatar2.png" />
+                    <a href="#" class="btn btn-{{device2}} wide" v-on:click="toggleDevice2()" >{{device2}}</a>
+                </div>
+                <div class="home"></div>
+                <div class="bottom-bar"></div>
+            </div>
+        </div>
+    </div>
+  
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/1.0.21/vue.min.js" type="application/javascript"></script>
 <script src="https://s3-eu-west-1.amazonaws.com/cdn.emitter.io/js/emitter.min.js" type="text/javascript"></script>
-<script src="https://cdn.jsdelivr.net/jdenticon/1.3.2/jdenticon.min.js"></script>
-<script src="js/app.visitor.js" type="text/javascript"></script>
+<script src="js/app.utils.js" type="text/javascript"></script>
 <script src="js/app.js" type="text/javascript"></script>
 </body>
 </html>
