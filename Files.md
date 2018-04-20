@@ -32,7 +32,7 @@ This is used by Vue.js if  want the chat to be one of many components on a web p
 ### index.hrml
 This is used if you want the entire web page to be a chat application. 
 
-###Screen.png
+### Screen.png
 This is the image used in the README.md file
 
 ### tsconfig.json
